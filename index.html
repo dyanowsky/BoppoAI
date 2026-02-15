@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boppo AI</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --golden: #f5c96a;
+      --golden-dark: #d89d32;
+      --cream: #fff6dc;
+      --brown: #5a3e1e;
+      --card: rgba(255, 248, 230, 0.92);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Trebuchet MS", "Comic Sans MS", Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      color: var(--brown);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.5) 0 60px, transparent 61px),
+        radial-gradient(circle at 80% 25%, rgba(255, 255, 255, 0.45) 0 50px, transparent 51px),
+        radial-gradient(circle at 25% 80%, rgba(255, 255, 255, 0.35) 0 70px, transparent 71px),
+        repeating-linear-gradient(45deg, #f4ce77 0 22px, #f2c263 22px 44px, #f0b857 44px 66px),
+        linear-gradient(180deg, #f8d98f 0%, #f2be58 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "🦴 🐾 🧸 🐶 🦴 🐾 🎾 🐶";
+      position: absolute;
+      left: -5%;
+      right: -5%;
+      color: rgba(90, 62, 30, 0.2);
+      letter-spacing: 16px;
+      font-size: clamp(1.1rem, 2vw, 2rem);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    body::before {
+      top: 14%;
+      transform: rotate(-3deg);
+    }
+
+    body::after {
+      bottom: 12%;
+      transform: rotate(2deg);
+    }
+
+    .container {
+      width: min(92vw, 760px);
+      background: var(--card);
+      border: 3px solid #f4cc78;
+      border-radius: 20px;
+      padding: 2rem 1.4rem;
+      box-shadow: 0 18px 35px rgba(90, 62, 30, 0.25);
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: 1px;
+      color: #6a3e00;
+    }
+
+    .tagline {
+      margin: 0.7rem 0 1.6rem;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-style: italic;
+      color: #7d5322;
+    }
+
+    .ask-box,
+    .answer-box {
+      width: 100%;
+      border: 2px solid var(--golden-dark);
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      background: var(--cream);
+      font-size: 1.05rem;
+    }
+
+    .ask-box {
+      resize: vertical;
+      min-height: 90px;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .go-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.2rem;
+      font-weight: 700;
+      background: #ffb730;
+      color: #4f2f05;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+      margin-bottom: 1rem;
+    }
+
+    .go-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .label {
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #7a4a11;
+      margin: 0.3rem 0;
+    }
+
+    .answer-box {
+      min-height: 88px;
+      text-align: left;
+      line-height: 1.4;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Boppo AI</h1>
+    <p class="tagline">The first AI by Boppo for Boppos</p>
+
+    <p class="label">Ask Boppo AI anything:</p>
+    <textarea id="questionInput" class="ask-box" placeholder="Ask your deepest dog-related mysteries..."></textarea>
+
+    <button id="askButton" class="go-btn" type="button">Ask Boppo AI 🐾</button>
+
+    <p class="label">Boppo AI says:</p>
+    <div id="answerOutput" class="answer-box">Woof! Ready when you are.</div>
+  </main>
+
+  <script>
+    const dogAnswers = [
+      "Woof!",
+      "Gib Treat!",
+      "More pets, please.",
+      "Bork bork! Must sniff first.",
+      "I detect snacks in your future.",
+      "Tail wag protocol activated.",
+      "Can confirm: zoomies are required.",
+      "Only if you throw the ball.",
+      "My professional opinion: nap now.",
+      "*happy golden retriever noises*"
+    ];
+
+    const askButton = document.getElementById("askButton");
+    const questionInput = document.getElementById("questionInput");
+    const answerOutput = document.getElementById("answerOutput");
+
+    function answerLikeADog() {
+      const randomIndex = Math.floor(Math.random() * dogAnswers.length);
+      answerOutput.textContent = dogAnswers[randomIndex];
+    }
+
+    askButton.addEventListener("click", answerLikeADog);
+
+    questionInput.addEventListener("keydown", (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+        answerLikeADog();
+      }
+    });
+  </script>
+</body>
+</html>
